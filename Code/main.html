@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        #state {
+            position: absolute;
+            bottom: -40px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="layout.js"></script>
+    <script src="menu.js"></script>
+    <script src="files.js"></script>
+
+    <script src="search.js"></script>
+    <script src="map.js"></script>
+    <script src="local_files.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwfUIcGj42jE-CeRkYWxW2nSsDITcvpL8&callback=initMap">
+    </script>
+    <script src="drag.js"></script>
+</head>
+
+<body>
+    <div id="mainWindow">
+        <!-- three buttons -->
+        <div id="menu">
+            <div id="viewmenu" class="horizontalList">
+                <div id="view_button" onclick="view_switch()">Simple</div>
+ 
+            </div>
+                <div id="resetmenu" class="horizontalList" onclick="location.reload()">Reset
+            </div>
+            <div id="helpmenu" class="horizontalList">
+                <div onclick="open_about()">Help</div>
+            </div>
+        </div>
+
+        <div id="map">
+            <div id="map_window">
+            </div>
+        </div>
+
+		<div id="info-box">
+			<table id = "infoTable">
+				<tr>
+					<td align = "center" colspan = "2"><b>Advanced information</b></td>
+				</tr>
+			</table>
+		</div>
+
+        <div id="files">
+            <input type="text" id="filterBar" onkeyup="filter_function()" placeholder="Start typing to filter datasets...">
+
+            <div id="extRadio">
+                <div id="file_refresh"></div>
+                <span id="ext1" class="extElement" onclick="filter_function()"><input type="checkbox" />KML</span>
+                <span id="ext2" class="extElement" onclick="filter_function()"><input type="checkbox" />JSON</span>
+                <span id="ext3" class="extElement" style="display:none"><input type="checkbox" />META</span>
+            </div>
+            <div id="file_tag" align="center"><b>Datasets</b></div>
+            <div id="files_list"></div>
+            <div id="data_tag" align="center"><b>Selected datasets</b></div>
+            <div id="dataset"></div>
+
+        </div>
+    </div>
+
+    <script>
+        version = "1.0";
+        init_window_default();
+        init_menu();
+        
+        init_files();
+
+        local_file= read_store();
+
+        file_listing(local_file);
+
+        map_buffer = {};
+        legend_buffer = {};
+
+        initMap();
+
+    </script>
+
+</body>
+</html>
